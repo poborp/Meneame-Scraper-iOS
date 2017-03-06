@@ -1,0 +1,25 @@
+//
+//  PrefixHeader.pch
+//  ScrAPPer
+//
+//  Created by Jacobo Rodriguez on 20/2/17.
+//  Copyright (c) 2017 tBear Software. All rights reserved.
+//
+
+#ifndef dadas_Prefix_pch
+#define dadas_Prefix_pch
+
+#ifdef DEBUG
+    #define DLog(...) NSLog(__VA_ARGS__)
+#else
+    #define DLog(...)
+#endif
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "UIColor+App.h"
+#import "UIFont+App.h"
+#import "NSString+Utils.h"
+
+#endif /* dadas_Prefix_pch */

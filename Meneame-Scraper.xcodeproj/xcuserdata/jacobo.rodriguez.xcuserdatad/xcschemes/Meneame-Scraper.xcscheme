@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EA6954EB1E6B076700A5C2DD"
-               BuildableName = "Meneame-Scraper.app"
-               BlueprintName = "Meneame-Scraper"
+               BuildableName = "Meneame.app"
+               BlueprintName = "Meneame"
                ReferencedContainer = "container:Meneame-Scraper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EA6954EB1E6B076700A5C2DD"
-            BuildableName = "Meneame-Scraper.app"
-            BlueprintName = "Meneame-Scraper"
+            BuildableName = "Meneame.app"
+            BlueprintName = "Meneame"
             ReferencedContainer = "container:Meneame-Scraper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EA6954EB1E6B076700A5C2DD"
-            BuildableName = "Meneame-Scraper.app"
-            BlueprintName = "Meneame-Scraper"
+            BuildableName = "Meneame.app"
+            BlueprintName = "Meneame"
             ReferencedContainer = "container:Meneame-Scraper.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +75,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EA6954EB1E6B076700A5C2DD"
-            BuildableName = "Meneame-Scraper.app"
-            BlueprintName = "Meneame-Scraper"
+            BuildableName = "Meneame.app"
+            BlueprintName = "Meneame"
             ReferencedContainer = "container:Meneame-Scraper.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
