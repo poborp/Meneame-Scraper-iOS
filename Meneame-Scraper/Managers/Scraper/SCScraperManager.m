@@ -87,11 +87,6 @@
 
 - (void)newsFromPage:(NSInteger)page completion:(void(^)(NSDictionary *newsList, NSError *error))completion {
     
-//    NSDictionary *dictionary = @{@"page": @(page), @"elements": @[SCNewsVO exampleObject]]};
-//    if (completion) {
-//        completion(dictionary, nil);
-//    }
-    
     NSURL *url = [NSURL URLWithString:@"https://www.meneame.net/"];
     NSDictionary *params = @{@"page": @(page)};
     

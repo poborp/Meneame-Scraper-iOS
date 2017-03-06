@@ -194,7 +194,10 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
     self.currentPage = 1;
     
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    if (self.newsList.count > 0) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+    
     [self reloadData:nil];
 }
 
