@@ -96,4 +96,24 @@
     return elements;
 }
 
+- (void)setValue:(id)value forElementID:(NSString *)elementId {
+    
+    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.getElementById('%@').value = '%@';", elementId, value]];
+}
+
+- (void)submitFormWithId:(NSString *)formId {
+    
+    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.getElementById('%@').submit();", formId]];
+}
+
+- (void)submitFormIndex:(NSInteger)formIndex {
+    
+    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.getElementsByTagName('form')[%li].submit();", formIndex]];
+}
+
+- (void)submitFormClassName:(NSString *)className index:(NSInteger)index {
+    
+    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.getElementsByClassName('%@')[%li].submit();", className, index]];
+}
+
 @end

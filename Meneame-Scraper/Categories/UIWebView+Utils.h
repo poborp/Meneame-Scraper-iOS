@@ -21,4 +21,10 @@
 - (NSArray *)getElementsByTagName:(NSString *)tagName;
 - (NSArray *)getElementsByTagNames:(NSArray *)tagNames;
 
+- (void)setValue:(id)value forElementID:(NSString *)elementId;
+
+- (void)submitFormWithId:(NSString *)formId;
+- (void)submitFormIndex:(NSInteger)formIndex;
+- (void)submitFormClassName:(NSString *)className index:(NSInteger)index;
+
 @end
