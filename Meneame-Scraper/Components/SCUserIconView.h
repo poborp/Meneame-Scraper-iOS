@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) NSDictionary *user;
 
+@property (nonatomic, strong, readonly) UIBarButtonItem *barButtonItem;
+
 @end

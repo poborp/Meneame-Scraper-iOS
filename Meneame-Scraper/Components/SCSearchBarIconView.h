@@ -10,4 +10,6 @@
 
 @interface SCSearchBarIconView : SCGenericBarIconView
 
+@property (nonatomic, strong, readonly) UIBarButtonItem *barButtonItem;
+
 @end

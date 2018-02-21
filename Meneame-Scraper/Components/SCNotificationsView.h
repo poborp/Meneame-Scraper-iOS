@@ -12,4 +12,6 @@
 
 @property (nonatomic, assign) NSInteger notificationsCount;
 
+@property (nonatomic, strong, readonly) UIBarButtonItem *barButtonItem;
+
 @end

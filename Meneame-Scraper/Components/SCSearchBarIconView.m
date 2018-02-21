@@ -39,8 +39,15 @@
     NSDictionary *metrics = @{};
     NSDictionary *dictionaryView = NSDictionaryOfVariableBindings(_imageView);
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_imageView]|" options:0 metrics:metrics views:dictionaryView]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[_imageView]-2-|" options:0 metrics:metrics views:dictionaryView]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_imageView(26)]-5-|" options:0 metrics:metrics views:dictionaryView]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[_imageView(26)]-2-|" options:0 metrics:metrics views:dictionaryView]];
+}
+
+#pragma mark - Getter
+
+- (UIBarButtonItem *)barButtonItem {
+    
+    return [[UIBarButtonItem alloc] initWithCustomView:self];
 }
 
 @end

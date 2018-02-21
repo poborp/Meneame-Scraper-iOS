@@ -54,7 +54,7 @@
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_imageView]|" options:0 metrics:metrics views:dictionaryView]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_countLabel(28)]-2-|" options:0 metrics:metrics views:dictionaryView]];
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[_imageView]-2-|" options:0 metrics:metrics views:dictionaryView]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[_imageView(26)]-2-|" options:0 metrics:metrics views:dictionaryView]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-6-[_countLabel(19)]" options:0 metrics:metrics views:dictionaryView]];
 }
 
@@ -65,6 +65,13 @@
     _notificationsCount = notificationsCount;
     
     self.countLabel.text = [NSString stringWithFormat:@"%li", notificationsCount];
+}
+
+#pragma mark - Getter
+
+- (UIBarButtonItem *)barButtonItem {
+    
+    return [[UIBarButtonItem alloc] initWithCustomView:self];
 }
 
 @end
