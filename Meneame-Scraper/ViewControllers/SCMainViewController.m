@@ -31,8 +31,8 @@ static NSString *CellIdentifier = @"CellIdentifier";
 @property (nonatomic, assign) BOOL defaultSubs;
 
 @property (nonatomic, strong) SCSearchBarIconView *searchBarIconView;
-@property (nonatomic, strong) SCUserIconView *userView;
-@property (nonatomic, strong) SCNotificationsView *notificationsView;
+@property (nonatomic, strong) SCUserIconView *userIconView;
+@property (nonatomic, strong) SCNotificationsView *notificationsIconView;
 
 @end
 
@@ -64,11 +64,11 @@ static NSString *CellIdentifier = @"CellIdentifier";
     _searchBarIconView = [SCSearchBarIconView new];
     [_searchBarIconView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressSearchBarButtonItem:)]];
     
-    _userView = [SCUserIconView new];
-    [_userView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressUserBarButtonItem:)]];
+    _userIconView = [SCUserIconView new];
+    [_userIconView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressUserBarButtonItem:)]];
     
-    _notificationsView = [SCNotificationsView new];
-    [_notificationsView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressNotificationsBarButtonItem:)]];
+    _notificationsIconView = [SCNotificationsView new];
+    [_notificationsIconView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressNotificationsBarButtonItem:)]];
     
     [self reloadData:nil];
 }
@@ -81,13 +81,12 @@ static NSString *CellIdentifier = @"CellIdentifier";
     
     if (logged) {
         
-        self.userView.user = self.user;
+        self.userIconView.user = self.user;
+        self.navigationItem.rightBarButtonItems = @[self.notificationsIconView.barButtonItem, self.userIconView.barButtonItem, self.searchBarIconView.barButtonItem];
         
-        self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:self.notificationsView],
-                                                    [[UIBarButtonItem alloc] initWithCustomView:self.userView],
-                                                    [[UIBarButtonItem alloc] initWithCustomView:self.searchBarIconView],
-                                                    ];
     } else {
+        
+        self.userIconView.user = nil;
         self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithTitle:@"Login" style:UIBarButtonItemStylePlain target:self action:@selector(didPressLoginBarButtonItem:)]];
     }
 }
@@ -142,21 +141,8 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    SCNewsVO *news = self.newsList[indexPath.row];
-    
     SCMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    cell.meneos = news.meneos;
-    cell.imageURL = news.imageUrl;
-    cell.votesPositive = news.votesPositive;
-    cell.votesAnonymous = news.votesAnonymous;
-    cell.votesNegative = news.votesNegative;
-    cell.karma = news.karma;
-    cell.commentsCount = news.commentsCount;
-    cell.title = news.title;
-    cell.userImageUrl = news.userImageUrl;
-    cell.userName = news.userName;
-    cell.sourceName = news.soruceTitle;
-    cell.content = news.content;
+    cell.news = self.newsList[indexPath.row];
  
     return cell;
 }
@@ -203,28 +189,37 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 - (void)didPressLoginBarButtonItem:(UIBarButtonItem *)barButtonItem {
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Meneame" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Menéame" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"Usuario";
-        textField.text = @"";
+        textField.text = @"poborp@gmail.com";
+        textField.keyboardType = UIKeyboardTypeEmailAddress;
     }];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"Contraseña";
-        textField.text = @"";
+        textField.text = @"jako1234";
         textField.secureTextEntry = YES;
     }];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Iniciar Sesión" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
+        UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        [activityIndicatorView startAnimating];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
+        
         [SCRAPER loginWithUsername:alertController.textFields[0].text password:alertController.textFields[1].text completion:^(NSDictionary *user, NSError *error) {
+
+            [activityIndicatorView stopAnimating];
             
             if (!user) {
+
+                self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithTitle:@"Login" style:UIBarButtonItemStylePlain target:self action:@selector(didPressLoginBarButtonItem:)]];
                 
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Login Error" message:@"User error" preferredStyle:UIAlertControllerStyleAlert];
                 [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil]];
                 [self presentViewController:alert animated:YES completion:nil];
-                
+
             } else {
-                
+
                 [self reloadData:nil];
             }
         }];

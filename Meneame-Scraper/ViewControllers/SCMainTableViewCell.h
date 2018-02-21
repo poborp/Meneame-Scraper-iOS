@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class SCNewsVO;
+
 @interface SCMainTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) SCNewsVO *news;
 
 @property (nonatomic, assign) NSInteger meneos;
 @property (nonatomic, strong) NSString *title;

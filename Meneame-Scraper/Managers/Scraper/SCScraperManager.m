@@ -45,8 +45,13 @@
 - (void)loginWithUsername:(NSString *)userName password:(NSString *)password completion:(void(^)(NSDictionary *user, NSError *error))completion {
     
     NSURL *url = [NSURL URLWithString:@"https://www.meneame.net/login"];
-    NSDictionary *params = @{@"username": userName, @"password": password, @"login": @"", @"processlogin": @"1", @"return": @"/", @"persistent": @"on"};
-    
+    NSDictionary *params = @{@"username": userName,
+                             @"password": password,
+                             @"login": @"",
+                             @"processlogin": @"1",
+                             @"return": @"/",
+                             @"persistent": @"on"};
+
     [self.webScraper post:url params:params completion:^(NSString *sourceCode, NSError *error) {
         
         NSString *userInfo = [sourceCode substringFromString:@"<ul id=\"userinfo\">" toString:@"</ul>"];

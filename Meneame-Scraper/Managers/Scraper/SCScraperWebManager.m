@@ -101,7 +101,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     
-//    NSLog(@"[WebScraper] Did finish load \"%@\"", webView.request.URL.absoluteString);
+    //NSLog(@"[WebScraper] Did finish load \"%@\"", webView.request.URL.absoluteString);
     
     if (!webView.loading) {
         if (self.sourceCodeHandler) {

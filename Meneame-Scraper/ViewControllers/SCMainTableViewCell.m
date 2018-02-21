@@ -9,6 +9,7 @@
 #import "SCMainTableViewCell.h"
 
 #import "UIImageView+AFNetworking.h"
+#import "SCNewsVO.h"
 
 @interface SCMainTableViewCell ()
 
@@ -105,13 +106,13 @@
         _userImageView.clipsToBounds = YES;
         _userImageView.contentMode = UIViewContentModeScaleAspectFill;
         _userImageView.layer.cornerRadius = 10;
-        _userImageView.layer.borderWidth = 1.0;
+        _userImageView.layer.borderWidth = 0.0; //1.0
         _userImageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
         [self.contentView addSubview:_userImageView];
         
         _userLabel = [UILabel new];
         _userLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _userLabel.text = @"por asdasd";
+        _userLabel.text = @"";
         _userLabel.font = [UIFont systemFontOfSize:12];
         [_userLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
         [_userLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
@@ -119,7 +120,7 @@
         
         _sourceLabel = [UILabel new];
         _sourceLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _sourceLabel.text = @"a gwewfrwefwef.com";
+        _sourceLabel.text = @"";
         _sourceLabel.font = [UIFont systemFontOfSize:12];
         [self.contentView addSubview:_sourceLabel];
         
@@ -167,6 +168,8 @@
 
 - (void)prepareForReuse {
     
+    [super prepareForReuse];
+    
     self.newsImageView.image = nil;
     self.votesPositive = 0;
     self.votesNegative = 0;
@@ -185,10 +188,28 @@
     
     [super setHighlighted:highlighted animated:animated];
     
-    self.backgroundColor = highlighted ? [UIColor colorWithWhite:0.3 alpha:0.1] : [UIColor whiteColor];
+    self.backgroundColor = highlighted ? [UIColor colorWithWhite:0.8 alpha:0.1] : [UIColor whiteColor];
 }
 
 #pragma mark - Setter
+
+- (void)setNews:(SCNewsVO *)news {
+    
+    _news = news;
+    
+    self.meneos = news.meneos;
+    self.imageURL = news.imageUrl;
+    self.votesPositive = news.votesPositive;
+    self.votesAnonymous = news.votesAnonymous;
+    self.votesNegative = news.votesNegative;
+    self.karma = news.karma;
+    self.commentsCount = news.commentsCount;
+    self.title = news.title;
+    self.userImageUrl = news.userImageUrl;
+    self.userName = news.userName;
+    self.sourceName = news.soruceTitle;
+    self.content = news.content;
+}
 
 - (void)setMeneos:(NSInteger)meneos {
     

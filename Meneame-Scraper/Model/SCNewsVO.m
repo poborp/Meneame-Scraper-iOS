@@ -88,7 +88,9 @@
             
             NSString *newsSubmittedDiv = [element substringFromString:@"<div class=\"news-submitted\">" toString:@"</div>"];
             news.userUrl = [newsSubmittedDiv substringFromString:@"<a href=\"" toString:@"\""];
-            news.userImageUrl = [newsSubmittedDiv substringFromString:@"<img src=\"" toString:@"\""];
+            //news.userImageUrl = [newsSubmittedDiv substringFromString:@"<img src=\"" toString:@"\""];
+            NSString *dataSrc = [newsSubmittedDiv substringFromString:@"data-src=\"" toString:@"\""];
+            news.userImageUrl = [@"https://mnmstatic.net" stringByAppendingString:dataSrc];
             
             NSString *sourceDiv = [element substringFromString:@"<span class=\"showmytitle\"" toString:@"</span>"];
             news.sourceUrl = [sourceDiv substringFromString:@"title=\"" toString:@"\""];
