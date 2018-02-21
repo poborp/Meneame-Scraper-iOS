@@ -192,12 +192,12 @@ static NSString *CellIdentifier = @"CellIdentifier";
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Menéame" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"Usuario";
-        textField.text = @"poborp@gmail.com";
+        textField.text = @"";
         textField.keyboardType = UIKeyboardTypeEmailAddress;
     }];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"Contraseña";
-        textField.text = @"jako1234";
+        textField.text = @"";
         textField.secureTextEntry = YES;
     }];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Iniciar Sesión" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
