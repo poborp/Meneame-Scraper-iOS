@@ -100,6 +100,12 @@ static NSString *CellIdentifier = @"CellIdentifier";
         [self updateTableWithData:data];
 
         [self endRefreshControl:refreshControl];
+        
+        if (error) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+            [self.navigationController presentViewController:alertController animated:YES completion:nil];
+        }
     }];
 }
 

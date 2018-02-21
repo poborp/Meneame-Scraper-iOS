@@ -9,7 +9,6 @@
 #import "SCScraperWebManager.h"
 
 #import "UIWebView+Utils.h"
-
 #import "AFNetworking.h"
 
 @interface SCScraperWebManager () <UIWebViewDelegate>
