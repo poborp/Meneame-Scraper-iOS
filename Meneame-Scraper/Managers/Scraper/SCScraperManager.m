@@ -10,6 +10,7 @@
 #import "SCScraperWebManager.h"
 #import "SCNewsVO.h"
 #import "AFNetworking.h"
+#import "UIWebView+Utils.h"
 
 @interface SCScraperManager ()
 
@@ -52,9 +53,9 @@
                              @"return": @"/",
                              @"persistent": @"on"};
 
-    [self.webScraper post:url params:params completion:^(NSString *sourceCode, NSError *error) {
+    [self.webScraper post:url params:params completion:^(UIWebView *webView, NSError *error) {
         
-        NSString *userInfo = [sourceCode substringFromString:@"<ul id=\"userinfo\">" toString:@"</ul>"];
+        NSString *userInfo = [webView.sourceCode substringFromString:@"<ul id=\"userinfo\">" toString:@"</ul>"];
         
         NSDictionary *user;
         if (![userInfo containsString:@">login<"] && ![userInfo containsString:@">registrarse<"]) {
@@ -74,7 +75,7 @@
     NSURL *url = [NSURL URLWithString:@"https://www.meneame.net/login"];
     NSDictionary *params = @{@"op": @"logout", @"return": @"/"};
     
-    [self.webScraper post:url params:params completion:^(NSString *sourceCode, NSError *error) {
+    [self.webScraper post:url params:params completion:^(UIWebView *webView, NSError *error) {
         
         //Delete all Cookies
         NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -95,12 +96,12 @@
     NSURL *url = [NSURL URLWithString:@"https://www.meneame.net/"];
     NSDictionary *params = @{@"page": @(page)};
     
-    [self.webScraper get:url params:params completion:^(NSString *sourceCode, NSError *error) {
+    [self.webScraper get:url params:params completion:^(UIWebView *webView, NSError *error) {
 
-        NSArray *news = [SCNewsVO newsFromSourceCode:sourceCode];
+        NSArray *news = [SCNewsVO newsFromSourceCode:webView.sourceCode];
 
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:@{@"page": @(page), @"elements": news}];
-        [dictionary addEntriesFromDictionary:[self getWebInfoFromSourceCode:sourceCode]];
+        [dictionary addEntriesFromDictionary:[self getWebInfoFromSourceCode:webView.sourceCode]];
         
         if (completion) {
             completion(dictionary, error);
@@ -112,12 +113,12 @@
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.meneame.net/user/%@/favorites#menu", userId]];
     
-    [self.webScraper get:url params:nil completion:^(NSString *sourceCode, NSError *error) {
+    [self.webScraper get:url params:nil completion:^(UIWebView *webView, NSError *error) {
         
-        NSArray *news = [SCNewsVO newsFromSourceCode:sourceCode];
+        NSArray *news = [SCNewsVO newsFromSourceCode:webView.sourceCode];
         
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:@{@"section": @"user_favorites", @"elements": news}];
-        [dictionary addEntriesFromDictionary:[self getWebInfoFromSourceCode:sourceCode]];
+        [dictionary addEntriesFromDictionary:[self getWebInfoFromSourceCode:webView.sourceCode]];
         
         if (completion) {
             completion(dictionary, error);
@@ -163,12 +164,12 @@
                              @"u": @""
                              };
     
-    [self.webScraper get:url params:params completion:^(NSString *sourceCode, NSError *error) {
+    [self.webScraper get:url params:params completion:^(UIWebView *webView, NSError *error) {
         
-        NSArray *news = [SCNewsVO newsFromSourceCode:sourceCode];
+        NSArray *news = [SCNewsVO newsFromSourceCode:webView.sourceCode];
         
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:@{@"page": @(1), @"elements": news}];
-        [dictionary addEntriesFromDictionary:[self getWebInfoFromSourceCode:sourceCode]];
+        [dictionary addEntriesFromDictionary:[self getWebInfoFromSourceCode:webView.sourceCode]];
         
         if (completion) {
             completion(dictionary, error);
@@ -188,7 +189,7 @@
                              @"control_key": controlKey
                              };
     
-    [self.webScraper post:url params:params completion:^(NSString *sourceCode, NSError *error) {
+    [self.webScraper post:url params:params completion:^(UIWebView *webView, NSError *error) {
         
         if (completion) {
             completion(error);

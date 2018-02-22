@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-typedef void(^SourceCodeHandler)(NSString *sourceCode, NSError *error);
+typedef void(^SourceCodeHandler)(UIWebView *webView, NSError *error);
 
 @class SCScraperWebManager;
 

@@ -104,7 +104,7 @@
     
     if (!webView.loading) {
         if (self.sourceCodeHandler) {
-            self.sourceCodeHandler(self.webView.sourceCode, nil);
+            self.sourceCodeHandler(self.webView, nil);
         }
     }
 }
@@ -115,7 +115,7 @@
     
     if (!webView.loading) {
         if (self.sourceCodeHandler) {
-            self.sourceCodeHandler(self.webView.sourceCode, error);
+            self.sourceCodeHandler(self.webView, error);
         }
     }
 }
