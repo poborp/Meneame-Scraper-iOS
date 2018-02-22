@@ -108,6 +108,23 @@
     }];
 }
 
+- (void)userNewsWithUserId:(NSString *)userId completion:(void(^)(NSDictionary *newsList, NSError *error))completion {
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.meneame.net/user/%@/favorites#menu", userId]];
+    
+    [self.webScraper get:url params:nil completion:^(NSString *sourceCode, NSError *error) {
+        
+        NSArray *news = [SCNewsVO newsFromSourceCode:sourceCode];
+        
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:@{@"section": @"user_favorites", @"elements": news}];
+        [dictionary addEntriesFromDictionary:[self getWebInfoFromSourceCode:sourceCode]];
+        
+        if (completion) {
+            completion(dictionary, error);
+        }
+    }];
+}
+
 #pragma mark - Notifications
 
 - (void)notificationsWithCompletion:(void(^)(NSDictionary *notifications, NSError *error))completion {

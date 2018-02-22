@@ -25,4 +25,6 @@
 
 - (void)showOnlyMySubs:(BOOL)show userId:(NSString *)userId controlKey:(NSString *)controlKey completion:(void(^)(NSError *error))completion;
 
+- (void)userNewsWithUserId:(NSString *)userId completion:(void(^)(NSDictionary *newsList, NSError *error))completion;
+
 @end

@@ -21,7 +21,6 @@
 @property (nonatomic, strong) UILabel *votesAnonymousLabel;
 @property (nonatomic, strong) UILabel *votesNegativeLabel;
 @property (nonatomic, strong) UILabel *karmaLabel;
-@property (nonatomic, strong) UILabel *commentsCountLabel;
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIImageView *userImageView;
@@ -87,17 +86,18 @@
         _karmaLabel.textColor = [UIColor blackColor];
         [self.contentView addSubview:_karmaLabel];
         
-        _commentsCountLabel = [UILabel new];
-        _commentsCountLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _commentsCountLabel.numberOfLines = 1;
-        _commentsCountLabel.font = [UIFont boldSystemFontOfSize:12];
-        _commentsCountLabel.textColor = [UIColor blackColor];
-        [self.contentView addSubview:_commentsCountLabel];
+        _commentsCountButton = [UIButton new];
+        _commentsCountButton.translatesAutoresizingMaskIntoConstraints = NO;
+        _commentsCountButton.titleLabel.numberOfLines = 1;
+        _commentsCountButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+        [_commentsCountButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.contentView addSubview:_commentsCountButton];
         
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _titleLabel.numberOfLines = 3;
-        _titleLabel.font = [UIFont boldSystemFontOfSize:14];
+        _titleLabel.font = [UIFont boldSystemFontOfSize:15];
+        _titleLabel.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:_titleLabel];
         
         _userImageView = [UIImageView new];
@@ -128,6 +128,7 @@
         _contentLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _contentLabel.numberOfLines = 0;
         _contentLabel.font = [UIFont systemFontOfSize:12];
+        _contentLabel.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:_contentLabel];
         
         _bottomContainer = [UIView new];
@@ -142,28 +143,31 @@
 
 - (void)addCustomConstraints {
     
-    NSDictionary *metrics = @{@"imageW": @(80), @"imageH": @(60)};
-    NSDictionary *dictionaryView = NSDictionaryOfVariableBindings(_newsImageView, _meneosLabel, _votesPositiveLabel, _votesAnonymousLabel, _votesNegativeLabel, _karmaLabel, _commentsCountLabel, _titleLabel, _userImageView, _userLabel, _sourceLabel, _contentLabel);
+    NSDictionary *metrics = @{@"imageW": @(100), @"imageH": @(60)};
+    NSDictionary *dictionaryView = NSDictionaryOfVariableBindings(_newsImageView, _meneosLabel, _votesPositiveLabel, _votesAnonymousLabel, _votesNegativeLabel, _karmaLabel, _commentsCountButton, _titleLabel, _userImageView, _userLabel, _sourceLabel, _contentLabel);
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[_newsImageView(imageW)]" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[_newsImageView(imageW)]" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_newsImageView]-15-[_titleLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[_userImageView(20)]-5-[_userLabel]-2-[_sourceLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[_contentLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_titleLabel]" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_newsImageView(imageH)]" options:0 metrics:metrics views:dictionaryView]];
+
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_newsImageView]-8-[_userImageView(20)]-8-[_contentLabel]-(>=15)-|" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_newsImageView]-8-[_userLabel(==_userImageView)]" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_newsImageView]-8-[_sourceLabel(==_userImageView)]" options:0 metrics:metrics views:dictionaryView]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-26-[_votesPositiveLabel(==_newsImageView)]" options:0 metrics:metrics views:dictionaryView]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-26-[_votesAnonymousLabel(==_newsImageView)]" options:0 metrics:metrics views:dictionaryView]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-26-[_votesNegativeLabel(==_newsImageView)]" options:0 metrics:metrics views:dictionaryView]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-26-[_karmaLabel(==_newsImageView)]" options:0 metrics:metrics views:dictionaryView]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-26-[_commentsCountLabel(==_newsImageView)]" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[_commentsCountButton(>=10)]-(>=8)-[_votesPositiveLabel]-8-[_votesAnonymousLabel]-8-[_votesNegativeLabel]-8-[_karmaLabel]-16-|" options:0 metrics:metrics views:dictionaryView]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_newsImageView]-10-[_titleLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_newsImageView]-10-[_userImageView(20)]-5-[_userLabel]-2-[_sourceLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_newsImageView]-10-[_contentLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_contentLabel]-15-[_commentsCountButton]-15-|" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_contentLabel]-15-[_votesPositiveLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_contentLabel]-15-[_votesAnonymousLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_contentLabel]-15-[_votesNegativeLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_contentLabel]-15-[_karmaLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_newsImageView(imageH)]-15-[_votesPositiveLabel]-2-[_votesAnonymousLabel]-2-[_votesNegativeLabel]-2-[_karmaLabel]-2-[_commentsCountLabel]-(>=15)-|" options:0 metrics:metrics views:dictionaryView]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_titleLabel]-5-[_userImageView(20)]-5-[_contentLabel]-(>=15)-|" options:0 metrics:metrics views:dictionaryView]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_titleLabel]-5-[_userLabel(==_userImageView)]" options:0 metrics:metrics views:dictionaryView]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_titleLabel]-5-[_sourceLabel(==_userImageView)]" options:0 metrics:metrics views:dictionaryView]];
-    
-    [_newsImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_meneosLabel]|" options:0 metrics:metrics views:dictionaryView]];
-    [_newsImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_meneosLabel(20)]|" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_meneosLabel]|" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_meneosLabel(20)]|" options:0 metrics:metrics views:dictionaryView]];
 }
 
 - (void)prepareForReuse {
@@ -188,7 +192,7 @@
     
     [super setHighlighted:highlighted animated:animated];
     
-    self.backgroundColor = highlighted ? [UIColor colorWithWhite:0.8 alpha:0.1] : [UIColor whiteColor];
+    self.backgroundColor = highlighted ? [UIColor colorWithWhite:0.6 alpha:0.1] : [UIColor whiteColor];
 }
 
 #pragma mark - Setter
@@ -269,15 +273,23 @@
     
     _commentsCount = commentsCount;
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\uf086  %@", @(commentsCount)]];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\uf086  %@ comentarios", @(commentsCount)]];
     [attributedString addAttributes:@{NSFontAttributeName: [UIFont awesomeFontWithSize:12], NSForegroundColorAttributeName: [UIColor appSecondaryColor]} range:NSMakeRange(0, 1)];
-    [attributedString addAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName: [UIColor blackColor]} range:NSMakeRange(1, attributedString.string.length-1)];
-    self.commentsCountLabel.attributedText = attributedString;
+    [attributedString addAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName: [UIColor appMainColor]} range:NSMakeRange(1, attributedString.string.length-1)];
+    [self.commentsCountButton setAttributedTitle:attributedString forState:UIControlStateNormal];
+    
+    NSMutableAttributedString *attributedString2 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\uf086  %@ comentarios", @(commentsCount)]];
+    [attributedString2 addAttributes:@{NSFontAttributeName: [UIFont awesomeFontWithSize:12], NSForegroundColorAttributeName: [[UIColor appSecondaryColor] colorWithAlphaComponent:0.4]} range:NSMakeRange(0, 1)];
+    [attributedString2 addAttributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:12], NSForegroundColorAttributeName: [[UIColor appMainColor] colorWithAlphaComponent:0.4]} range:NSMakeRange(1, attributedString.string.length-1)];
+    [self.commentsCountButton setAttributedTitle:attributedString2 forState:UIControlStateHighlighted];
 }
 
 - (void)setContent:(NSString *)content {
     
     _content = content;
+    
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    paragraphStyle.alignment = self.contentLabel.textAlignment;
     
     NSError *error = nil;
     NSDictionary *optionsDict = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)};
@@ -286,6 +298,7 @@
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithData:data options:optionsDict documentAttributes:nil error:&error];
     [attributedString addAttribute:NSFontAttributeName value:self.contentLabel.font range:NSMakeRange(0, attributedString.string.length)];
     [attributedString addAttribute:NSForegroundColorAttributeName value:self.contentLabel.textColor range:NSMakeRange(0, attributedString.string.length)];
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, attributedString.string.length)];
     
     self.contentLabel.attributedText = attributedString;
 }

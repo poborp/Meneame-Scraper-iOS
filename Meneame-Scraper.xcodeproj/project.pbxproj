@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA44A7BB203EBFBD0046A299 /* SCDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA44A7B8203EBFBD0046A299 /* SCDetailView.m */; };
+		EA44A7BC203EBFBD0046A299 /* SCDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA44A7BA203EBFBD0046A299 /* SCDetailViewController.m */; };
 		EA6954F11E6B076700A5C2DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6954F01E6B076700A5C2DD /* main.m */; };
 		EA6954F41E6B076700A5C2DD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6954F31E6B076700A5C2DD /* AppDelegate.m */; };
 		EA6954FC1E6B076700A5C2DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA6954FB1E6B076700A5C2DD /* Assets.xcassets */; };
@@ -50,6 +52,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EA44A7B7203EBFBD0046A299 /* SCDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCDetailView.h; sourceTree = "<group>"; };
+		EA44A7B8203EBFBD0046A299 /* SCDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCDetailView.m; sourceTree = "<group>"; };
+		EA44A7B9203EBFBD0046A299 /* SCDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCDetailViewController.h; sourceTree = "<group>"; };
+		EA44A7BA203EBFBD0046A299 /* SCDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCDetailViewController.m; sourceTree = "<group>"; };
 		EA6954EC1E6B076700A5C2DD /* Meneame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meneame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA6954F01E6B076700A5C2DD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EA6954F21E6B076700A5C2DD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -145,6 +151,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA44A7B6203EBF910046A299 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				EA44A7B9203EBFBD0046A299 /* SCDetailViewController.h */,
+				EA44A7BA203EBFBD0046A299 /* SCDetailViewController.m */,
+				EA44A7B7203EBFBD0046A299 /* SCDetailView.h */,
+				EA44A7B8203EBFBD0046A299 /* SCDetailView.m */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
 		EA6954E31E6B076700A5C2DD = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				EA82BFAF1E6D717E00F92D57 /* MainView */,
+				EA44A7B6203EBF910046A299 /* DetailView */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -357,7 +375,7 @@
 				EA69550A1E6D5FE100A5C2DD /* SCMainViewController.m */,
 				EA82BFAE1E6D717400F92D57 /* Cells */,
 			);
-			name = MainView;
+			path = MainView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -454,6 +472,7 @@
 				EA6955641E6D605000A5C2DD /* SCGenericBarIconView.m in Sources */,
 				EA6955911E6D662900A5C2DD /* SCCommentVO.m in Sources */,
 				EA6955661E6D605000A5C2DD /* SCSearchBarIconView.m in Sources */,
+				EA44A7BC203EBFBD0046A299 /* SCDetailViewController.m in Sources */,
 				EA6955941E6D662900A5C2DD /* SCNewsVO+CoreDataProperties.m in Sources */,
 				EA69556D1E6D605000A5C2DD /* AFURLSessionManager.m in Sources */,
 				EA6955621E6D605000A5C2DD /* UIWebView+AFNetworking.m in Sources */,
@@ -466,6 +485,7 @@
 				EA69555B1E6D605000A5C2DD /* AFImageDownloader.m in Sources */,
 				EA69550E1E6D5FE100A5C2DD /* SCMainTableViewCell.m in Sources */,
 				EA6955701E6D605000A5C2DD /* SCScraperManager.m in Sources */,
+				EA44A7BB203EBFBD0046A299 /* SCDetailView.m in Sources */,
 				EA69555E1E6D605000A5C2DD /* UIButton+AFNetworking.m in Sources */,
 				EA6955691E6D605000A5C2DD /* AFNetworkReachabilityManager.m in Sources */,
 				EA69550D1E6D5FE100A5C2DD /* SCMainViewController.m in Sources */,

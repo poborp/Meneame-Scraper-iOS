@@ -19,6 +19,8 @@
 #import "SCUserIconView.h"
 #import "SCNotificationsView.h"
 
+#import "SCDetailViewController.h"
+
 static NSString *CellIdentifier = @"CellIdentifier";
 
 @interface SCMainViewController ()
@@ -59,6 +61,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
     [self.refreshControl addTarget:self action:@selector(reloadData:) forControlEvents:UIControlEventValueChanged];
     
     self.tableView.estimatedRowHeight = 60;
+    self.tableView.separatorColor = [UIColor appSecondaryColor];
     [self.tableView registerClass:[SCMainTableViewCell class] forCellReuseIdentifier:CellIdentifier];
     
     _searchBarIconView = [SCSearchBarIconView new];
@@ -98,13 +101,25 @@ static NSString *CellIdentifier = @"CellIdentifier";
     [SCRAPER newsFromPage:self.currentPage completion:^(NSDictionary *data, NSError *error) {
         
         [self updateTableWithData:data];
-
+        
         [self endRefreshControl:refreshControl];
         
         if (error) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
             [self.navigationController presentViewController:alertController animated:YES completion:nil];
+        }
+    }];
+    
+    [SCRAPER notificationsWithCompletion:^(NSDictionary *notifications, NSError *error) {
+        
+        //NSLog(@"Notifications: %@", notifications);
+        
+        if (notifications) {
+            NSInteger notificationsCount = [notifications[@"privates"] integerValue] + [notifications[@"posts"] integerValue] + [notifications[@"comments"] integerValue] + [notifications[@"friends"] integerValue];
+            self.notificationsIconView.notificationsCount = notificationsCount;
+        } else {
+            self.notificationsIconView.notificationsCount = 0;
         }
     }];
 }
@@ -149,7 +164,9 @@ static NSString *CellIdentifier = @"CellIdentifier";
     
     SCMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     cell.news = self.newsList[indexPath.row];
- 
+    cell.commentsCountButton.tag = indexPath.row;
+    [cell.commentsCountButton addTarget:self action:@selector(didPressCommentsButton:) forControlEvents:UIControlEventTouchUpInside];
+    
     return cell;
 }
 
@@ -172,12 +189,13 @@ static NSString *CellIdentifier = @"CellIdentifier";
     }
 }
 
-#pragma mark - ScraperManager Delegate
+#pragma mark - Button Actions
 
-- (void)scraperManager:(SCScraperManager *)scraperManager foundData:(NSDictionary *)data {
+- (void)didPressCommentsButton:(UIButton *)button {
     
-    self.newsList = data[@"elements"];
-    [self.tableView reloadData];
+    SCNewsVO *news = self.newsList[button.tag];
+    SCDetailViewController *detailViewController = [[SCDetailViewController alloc] initWithNews:news];
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 #pragma mark - BarButtonItem Actions
@@ -195,7 +213,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 - (void)didPressLoginBarButtonItem:(UIBarButtonItem *)barButtonItem {
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Menéame" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Menéame" message:@"Iniciar Sesión" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"Usuario";
         textField.text = @"";
@@ -206,7 +224,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
         textField.text = @"";
         textField.secureTextEntry = YES;
     }];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Iniciar Sesión" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Aceptar" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         [activityIndicatorView startAnimating];
@@ -220,8 +238,8 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
                 self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithTitle:@"Login" style:UIBarButtonItemStylePlain target:self action:@selector(didPressLoginBarButtonItem:)]];
                 
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Login Error" message:@"User error" preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil]];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Error al iniciar sesión, comprueba el usuario y contraseña" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
                 [self presentViewController:alert animated:YES completion:nil];
 
             } else {
@@ -261,12 +279,12 @@ static NSString *CellIdentifier = @"CellIdentifier";
             [self reloadData:nil];
         }];
     }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Logout" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    [alert addAction:[UIAlertAction actionWithTitle:@"Desconectar" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [SCRAPER logoutWithcompletion:^(BOOL result, NSError *error) {
             [self reloadData:nil];
         }];
     }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -274,7 +292,38 @@ static NSString *CellIdentifier = @"CellIdentifier";
     
     [SCRAPER notificationsWithCompletion:^(NSDictionary *notifications, NSError *error) {
         
-        NSLog(@"Notifications: %@", notifications);
+        //NSLog(@"Notifications: %@", notifications);
+        
+        if (notifications) {
+            
+            NSInteger notificationsCount = [notifications[@"privates"] integerValue] + [notifications[@"posts"] integerValue] + [notifications[@"comments"] integerValue] + [notifications[@"friends"] integerValue];
+            self.notificationsIconView.notificationsCount = notificationsCount;
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            [alert addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@ privados nuevos", notifications[@"privates"]] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@ respuestas a notas", notifications[@"posts"]] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@ respuestas a comentarios", notifications[@"comments"]] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@ nuevos amigos", notifications[@"friends"]] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@ noticias guardadas", notifications[@"favorites"]] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [SCRAPER userNewsWithUserId:self.user[@"user_login"] completion:^(NSDictionary *newsList, NSError *error) {
+                    [self updateTableWithData:newsList];
+                }];
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+        } else {
+            
+            self.notificationsIconView.notificationsCount = 0;
+        }
     }];
 }
 
