@@ -22,7 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSString *userName;
 
 + (instancetype)exampleObject;
-+ (NSArray *)newsFromSourceCode:(NSString *)sourceCode;
++ (instancetype)objectFromSourceCode:(NSString *)sourceCode;
++ (NSArray *)allObjectsFromSourceCode:(NSString *)sourceCode;
++ (NSArray *)allObjectsFromArray:(NSArray *)array;
 
 @end
 

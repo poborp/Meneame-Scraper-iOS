@@ -97,9 +97,9 @@
     NSDictionary *params = @{@"page": @(page)};
     
     [self.webScraper get:url params:params completion:^(UIWebView *webView, NSError *error) {
-
-        NSArray *news = [SCNewsVO newsFromSourceCode:webView.sourceCode];
-
+        
+        NSArray *news = [SCNewsVO allObjectsFromSourceCode:webView.sourceCode];
+        
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:@{@"page": @(page), @"elements": news}];
         [dictionary addEntriesFromDictionary:[self getWebInfoFromSourceCode:webView.sourceCode]];
         
@@ -115,7 +115,7 @@
     
     [self.webScraper get:url params:nil completion:^(UIWebView *webView, NSError *error) {
         
-        NSArray *news = [SCNewsVO newsFromSourceCode:webView.sourceCode];
+        NSArray *news = [SCNewsVO allObjectsFromSourceCode:webView.sourceCode];
         
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:@{@"section": @"user_favorites", @"elements": news}];
         [dictionary addEntriesFromDictionary:[self getWebInfoFromSourceCode:webView.sourceCode]];
@@ -166,7 +166,7 @@
     
     [self.webScraper get:url params:params completion:^(UIWebView *webView, NSError *error) {
         
-        NSArray *news = [SCNewsVO newsFromSourceCode:webView.sourceCode];
+        NSArray *news = [SCNewsVO allObjectsFromSourceCode:webView.sourceCode];
         
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:@{@"page": @(1), @"elements": news}];
         [dictionary addEntriesFromDictionary:[self getWebInfoFromSourceCode:webView.sourceCode]];

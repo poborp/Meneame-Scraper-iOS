@@ -40,90 +40,91 @@
     return news;
 }
 
-+ (NSArray *)newsFromSourceCode:(NSString *)sourceCode {
++ (instancetype)objectFromSourceCode:(NSString *)sourceCode {
+    
+    SCNewsVO *news = [SCNewsVO new];
+    
+    NSString *meneosDiv = [sourceCode substringFromString:@"<div class=\"votes\">" toString:@"</div>"];
+    news.meneos = [[meneosDiv substringFromString:@"\">" toString:@"</a>"] intValue];
+    
+    NSString *imageDiv = [sourceCode substringFromString:@"class=\"fancybox thumbnail-wrapper\"" toString:@"</a>"];
+    NSString *imageSrc = [imageDiv substringFromString:@" data-src='" toString:@"'"];
+    if (imageSrc.length == 0) {
+        imageSrc = [imageDiv substringFromString:@" data-src=\"" toString:@"\""];
+    }
+    news.imageUrl = imageSrc.length > 0 ? [NSString stringWithFormat:@"https://mnmstatic.net/%@", imageSrc] : nil;
+    
+    NSString *titleDiv = [sourceCode substringFromString:@"<h2>" toString:@"</h2>"];
+    news.url = [titleDiv substringFromString:@"href=\"" toString:@"\""];
+    news.title = [titleDiv substringFromString:@">" toString:@"</a>"];
+    
+    if ([sourceCode substringFromString:@"<i class=\"fa fa-camera\" alt=\"imagen\" title=\"imagen\">" toString:nil].length > 0) {
+        news.type = SCNewsTypeImage;
+    } else if ([sourceCode substringFromString:@"<i class=\"fa fa-video-camera\" alt=\"imagen\" title=\"imagen\">" toString:nil].length > 0) {
+        news.type = SCNewsTypeVideo;
+    } else {
+        news.type = SCNewsTypeNormal;
+    }
+    
+    NSString *newsSubmittedDiv = [sourceCode substringFromString:@"<div class=\"news-submitted\">" toString:@"</div>"];
+    news.userUrl = [newsSubmittedDiv substringFromString:@"<a href=\"" toString:@"\""];
+    //news.userImageUrl = [newsSubmittedDiv substringFromString:@"<img src=\"" toString:@"\""];
+    NSString *dataSrc = [newsSubmittedDiv substringFromString:@"data-src=\"" toString:@"\""];
+    news.userImageUrl = [@"https://mnmstatic.net" stringByAppendingString:dataSrc];
+    
+    NSString *sourceDiv = [sourceCode substringFromString:@"<span class=\"showmytitle\"" toString:@"</span>"];
+    news.sourceUrl = [sourceDiv substringFromString:@"title=\"" toString:@"\""];
+    news.soruceTitle = [sourceDiv substringFromString:@">" toString:@"<"];
+    
+    double sendedTimestamp = [[newsSubmittedDiv substringFromString:@"<span data-ts=\"" toString:@"\"" index:0] doubleValue];
+    news.sendedDate = [NSDate dateWithTimeIntervalSince1970:sendedTimestamp];
+    
+    double publishedTimestamp = [[newsSubmittedDiv substringFromString:@"<span data-ts=\"" toString:@"\"" index:1] doubleValue];
+    news.sendedDate = [NSDate dateWithTimeIntervalSince1970:publishedTimestamp];
+    
+    news.content = [sourceCode substringFromString:@"<div class=\"news-content\">" toString:@"</div>"];
+    
+    NSString *votesUpDiv = [sourceCode substringFromString:@"<span class=\"votes-up\"" toString:@"</span>"];
+    news.votesPositive = [[votesUpDiv substringFromString:@"<strong>" toString:@"</strong>"] intValue];
+    
+    NSString *votesAnonymousDiv = [sourceCode substringFromString:@"<span class=\"wideonly votes-anonymous\"" toString:@"</span>"];
+    news.votesAnonymous = [[votesAnonymousDiv substringFromString:@"<strong>" toString:@"</strong>"] intValue];
+    
+    NSString *votesDownDiv = [sourceCode substringFromString:@"<span class=\"votes-down\"" toString:@"</span>"];
+    news.votesNegative = [[votesDownDiv substringFromString:@"<strong>" toString:@"</strong>"] intValue];
+    
+    NSString *karmaDiv = [sourceCode substringFromString:@"<span class=\"karma-value\"" toString:@"</span>"];
+    news.karma = [[karmaDiv substringFromString:@">  " toString:@"  "] intValue];
+    
+    NSString *commentsDiv = [sourceCode substringFromString:@"<i class=\"fa fa-comments\">" toString:@"</a>"];
+    news.commentsCount = [[commentsDiv substringFromString:@"</i>" toString:@" comentarios"] intValue];
+    
+    return news;
+}
+
++ (NSArray *)allObjectsFromSourceCode:(NSString *)sourceCode {
     
     NSMutableArray *newsFound = [NSMutableArray new];
-    
-//    JRJavascript *js = [JRJavascript sharedManager];
-//    js.sourceCode = sourceCode;
-//    
-//    NSArray *elements = [js getElementsByClassName:@"news-summary"];
-//    for (NSString *element in elements) {
-//        
-//        js.sourceCode = element;
-//        
-//        SCNewsVO *news = [SCNewsVO new];
-//        news.title = [[js getElementsByTagName:@"h2"] firstObject];
-//        
-//        NSLog(@"News: %@", news.description);
-//    }
     
     NSArray *elements = [sourceCode componentsSeparatedByString:@"news-summary"];
     for (NSString *element in elements) {
         if (element != elements.firstObject) {
-            
-            SCNewsVO *news = [SCNewsVO new];
-            
-            NSString *meneosDiv = [element substringFromString:@"<div class=\"votes\">" toString:@"</div>"];
-            news.meneos = [[meneosDiv substringFromString:@"\">" toString:@"</a>"] intValue];
-            
-            NSString *imageDiv = [element substringFromString:@"class=\"fancybox thumbnail-wrapper\"" toString:@"</a>"];
-            NSString *imageSrc = [imageDiv substringFromString:@" data-src='" toString:@"'"];
-            if (imageSrc.length == 0) {
-                imageSrc = [imageDiv substringFromString:@" data-src=\"" toString:@"\""];
-            }
-            news.imageUrl = imageSrc.length > 0 ? [NSString stringWithFormat:@"https://mnmstatic.net/%@", imageSrc] : nil;
-            
-            NSString *titleDiv = [element substringFromString:@"<h2>" toString:@"</h2>"];
-            news.url = [titleDiv substringFromString:@"href=\"" toString:@"\""];
-            news.title = [titleDiv substringFromString:@">" toString:@"</a>"];
-            
-            if ([element substringFromString:@"<i class=\"fa fa-camera\" alt=\"imagen\" title=\"imagen\">" toString:nil].length > 0) {
-                news.type = SCNewsTypeImage;
-            } else if ([element substringFromString:@"<i class=\"fa fa-video-camera\" alt=\"imagen\" title=\"imagen\">" toString:nil].length > 0) {
-                news.type = SCNewsTypeVideo;
-            } else {
-                news.type = SCNewsTypeNormal;
-            }
-            
-            NSString *newsSubmittedDiv = [element substringFromString:@"<div class=\"news-submitted\">" toString:@"</div>"];
-            news.userUrl = [newsSubmittedDiv substringFromString:@"<a href=\"" toString:@"\""];
-            //news.userImageUrl = [newsSubmittedDiv substringFromString:@"<img src=\"" toString:@"\""];
-            NSString *dataSrc = [newsSubmittedDiv substringFromString:@"data-src=\"" toString:@"\""];
-            news.userImageUrl = [@"https://mnmstatic.net" stringByAppendingString:dataSrc];
-            
-            NSString *sourceDiv = [element substringFromString:@"<span class=\"showmytitle\"" toString:@"</span>"];
-            news.sourceUrl = [sourceDiv substringFromString:@"title=\"" toString:@"\""];
-            news.soruceTitle = [sourceDiv substringFromString:@">" toString:@"<"];
-            
-            double sendedTimestamp = [[newsSubmittedDiv substringFromString:@"<span data-ts=\"" toString:@"\"" index:0] doubleValue];
-            news.sendedDate = [NSDate dateWithTimeIntervalSince1970:sendedTimestamp];
-            
-            double publishedTimestamp = [[newsSubmittedDiv substringFromString:@"<span data-ts=\"" toString:@"\"" index:1] doubleValue];
-            news.sendedDate = [NSDate dateWithTimeIntervalSince1970:publishedTimestamp];
-            
-            news.content = [element substringFromString:@"<div class=\"news-content\">" toString:@"</div>"];
-            
-            NSString *votesUpDiv = [element substringFromString:@"<span class=\"votes-up\"" toString:@"</span>"];
-            news.votesPositive = [[votesUpDiv substringFromString:@"<strong>" toString:@"</strong>"] intValue];
-            
-            NSString *votesAnonymousDiv = [element substringFromString:@"<span class=\"wideonly votes-anonymous\"" toString:@"</span>"];
-            news.votesAnonymous = [[votesAnonymousDiv substringFromString:@"<strong>" toString:@"</strong>"] intValue];
-            
-            NSString *votesDownDiv = [element substringFromString:@"<span class=\"votes-down\"" toString:@"</span>"];
-            news.votesNegative = [[votesDownDiv substringFromString:@"<strong>" toString:@"</strong>"] intValue];
-            
-            NSString *karmaDiv = [element substringFromString:@"<span class=\"karma-value\"" toString:@"</span>"];
-            news.karma = [[karmaDiv substringFromString:@">  " toString:@"  "] intValue];
-            
-            NSString *commentsDiv = [element substringFromString:@"<i class=\"fa fa-comments\">" toString:@"</a>"];
-            news.commentsCount = [[commentsDiv substringFromString:@"</i>" toString:@" comentarios"] intValue];
-            
+            SCNewsVO *news = [SCNewsVO objectFromSourceCode:element];
             [newsFound addObject:news];
         }
     }
     
     return newsFound;
+}
+
++ (NSArray *)allObjectsFromArray:(NSArray *)array {
+    
+    NSMutableArray *objects = [NSMutableArray new];
+    for (NSString *elementSourceCode in array) {
+        SCNewsVO *news = [self objectFromSourceCode:elementSourceCode];
+        [objects addObject:news];
+    }
+    return objects;
 }
 
 #pragma mark - Getter
