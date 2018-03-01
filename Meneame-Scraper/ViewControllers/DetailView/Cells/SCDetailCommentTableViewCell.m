@@ -1,20 +1,22 @@
 //
-//  SCDetailCommentCellView.m
+//  SCDetailCommentTableViewCell.m
 //  Meneame
 //
 //  Created by Jacobo Rodriguez on 26/02/18.
 //  Copyright © 2018 Jacobo Rodriguez. All rights reserved.
 //
 
-#import "SCDetailCommentCellView.h"
+#import "SCDetailCommentTableViewCell.h"
+#import "SCCommentVO.h"
+#import "UIImageView+AFNetworking.h"
 
-@interface SCDetailCommentCellView ()
+@interface SCDetailCommentTableViewCell ()
 
 @property (nonatomic, strong) UIImageView *userImageView;
 
 @end
 
-@implementation SCDetailCommentCellView
+@implementation SCDetailCommentTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -66,6 +68,23 @@
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[_numCommentLabel]-5-[_textView]" options:0 metrics:nil views:dictionaryView]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[_userNameLabel]-5-[_textView]" options:0 metrics:nil views:dictionaryView]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_textView]-16-|" options:0 metrics:nil views:dictionaryView]];
+}
+
+#pragma mark - Setter
+
+- (void)setComment:(SCCommentVO *)comment {
+    
+    _comment = comment;
+    
+    [self.userImageView setImageWithURL:[NSURL URLWithString:comment.userImageUrl] placeholderImage:[UIImage imageNamed:@"no-gravatar"]];
+    self.numCommentLabel.text = [NSString stringWithFormat:@"#%i", comment.num];
+    self.userNameLabel.text = comment.username;
+    
+    JRHTMLString *htmlString = [JRHTMLString htmlWithContentString:comment.text];
+    htmlString.hiperlinkColor = [UIColor appMainColor];
+    htmlString.hiperlinkLine = NO;
+    htmlString.font = [UIFont systemFontOfSize:12];
+    self.textView.htmlString = htmlString;
 }
 
 @end

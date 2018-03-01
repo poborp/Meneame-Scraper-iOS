@@ -1,22 +1,23 @@
 //
-//  SCMainTableViewCell.m
-//  ScrAPPer
+//  SCDetailNewsTableViewCell.m
+//  Meneame
 //
-//  Created by Jacobo Rodriguez on 27/2/17.
-//  Copyright © 2017 tBear Software. All rights reserved.
+//  Created by Jacobo Rodriguez on 1/03/18.
+//  Copyright © 2018 Jacobo Rodriguez. All rights reserved.
 //
 
-#import "SCMainTableViewCell.h"
+#import "SCDetailNewsTableViewCell.h"
 
 #import "UIImageView+AFNetworking.h"
 #import "SCNewsVO.h"
+#import "SCMeneosView.h"
 
-@interface SCMainTableViewCell ()
+@interface SCDetailNewsTableViewCell ()
 
 @property (nonatomic, strong) NSString *highlightView;
 
 @property (nonatomic, strong) UIImageView *newsImageView;
-@property (nonatomic, strong) UILabel *meneosLabel;
+@property (nonatomic, strong) SCMeneosView *meneosView;
 @property (nonatomic, strong) UILabel *votesPositiveLabel;
 @property (nonatomic, strong) UILabel *votesAnonymousLabel;
 @property (nonatomic, strong) UILabel *votesNegativeLabel;
@@ -31,7 +32,7 @@
 
 @end
 
-@implementation SCMainTableViewCell
+@implementation SCDetailNewsTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -44,19 +45,13 @@
         _newsImageView.backgroundColor = [UIColor appSecondaryLightColor];
         _newsImageView.layer.borderWidth = 0;
         _newsImageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        _newsImageView.layer.cornerRadius = 3;
         _newsImageView.contentMode = UIViewContentModeScaleAspectFill;
         _newsImageView.clipsToBounds = YES;
         [self.contentView addSubview:_newsImageView];
         
-        _meneosLabel = [UILabel new];
-        _meneosLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _meneosLabel.text = @"0";
-        _meneosLabel.textColor = [UIColor appMainColor];
-        _meneosLabel.textAlignment = NSTextAlignmentCenter;
-        _meneosLabel.font = [UIFont boldSystemFontOfSize:12];
-        _meneosLabel.backgroundColor = [[UIColor appSecondaryLightColor] colorWithAlphaComponent:0.8];
-        [_newsImageView addSubview:_meneosLabel];
+        _meneosView = [SCMeneosView new];
+        _meneosView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.contentView addSubview:_meneosView];
         
         _votesPositiveLabel = [UILabel new];
         _votesPositiveLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -96,7 +91,7 @@
         _titleLabel = [UILabel new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _titleLabel.numberOfLines = 3;
-        _titleLabel.font = [UIFont boldSystemFontOfSize:15];
+        _titleLabel.font = [UIFont boldSystemFontOfSize:18];
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:_titleLabel];
         
@@ -128,7 +123,7 @@
         _contentLabel = [UILabel new];
         _contentLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _contentLabel.numberOfLines = 0;
-        _contentLabel.font = [UIFont systemFontOfSize:12];
+        _contentLabel.font = [UIFont systemFontOfSize:14];
         _contentLabel.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:_contentLabel];
         
@@ -144,20 +139,43 @@
 
 - (void)addCustomConstraints {
     
-    NSDictionary *metrics = @{@"imageW": @(100), @"imageH": @(60)};
-    NSDictionary *dictionaryView = NSDictionaryOfVariableBindings(_newsImageView, _meneosLabel, _votesPositiveLabel, _votesAnonymousLabel, _votesNegativeLabel, _karmaLabel, _commentsCountButton, _titleLabel, _userImageView, _userLabel, _sourceLabel, _contentLabel);
+    NSDictionary *metrics = @{@"imageH": @(200)};
+    NSDictionary *dictionaryView = NSDictionaryOfVariableBindings(_newsImageView, _meneosView, _votesPositiveLabel, _votesAnonymousLabel, _votesNegativeLabel, _karmaLabel, _commentsCountButton, _titleLabel, _userImageView, _userLabel, _sourceLabel, _contentLabel);
+
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_newsImageView]|" options:0 metrics:metrics views:dictionaryView]];
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_titleLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[_userImageView(20)]-5-[_userLabel]-2-[_sourceLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[_contentLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+//
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_meneosView]" options:0 metrics:metrics views:dictionaryView]];
+//    //[NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_meneosView]" options:0 metrics:metrics views:dictionaryView]];
+//    [NSLayoutConstraint activateConstraints:@[[NSLayoutConstraint constraintWithItem:_meneosView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_newsImageView attribute:NSLayoutAttributeBottom multiplier:1 constant:-15]]];
+//
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_newsImageView(imageH)]-15-[_titleLabel]" options:0 metrics:metrics views:dictionaryView]];
+//
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_titleLabel]-8-[_userImageView(20)]-8-[_contentLabel]-(>=15)-|" options:0 metrics:metrics views:dictionaryView]];
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_titleLabel]-8-[_userLabel(==_userImageView)]" options:0 metrics:metrics views:dictionaryView]];
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_titleLabel]-8-[_sourceLabel(==_userImageView)]" options:0 metrics:metrics views:dictionaryView]];
+//
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[_commentsCountButton(>=10)]-(>=8)-[_votesPositiveLabel]-8-[_votesAnonymousLabel]-8-[_votesNegativeLabel]-8-[_karmaLabel]-16-|" options:0 metrics:metrics views:dictionaryView]];
+//
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_contentLabel]-15-[_commentsCountButton]-15-|" options:0 metrics:metrics views:dictionaryView]];
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_contentLabel]-15-[_votesPositiveLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_contentLabel]-15-[_votesAnonymousLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_contentLabel]-15-[_votesNegativeLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_contentLabel]-15-[_karmaLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
     
-    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[_newsImageView(imageW)]" options:0 metrics:metrics views:dictionaryView]];
-    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_newsImageView]-15-[_titleLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
-    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[_userImageView(20)]-5-[_userLabel]-2-[_sourceLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_newsImageView]|" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_meneosView]-15-[_titleLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_meneosView]-15-[_userImageView(20)]-5-[_userLabel]-2-[_sourceLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[_contentLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
-
-    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_titleLabel]" options:0 metrics:metrics views:dictionaryView]];
-    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_newsImageView(imageH)]" options:0 metrics:metrics views:dictionaryView]];
-
-    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_newsImageView]-8-[_userImageView(20)]-8-[_contentLabel]-(>=15)-|" options:0 metrics:metrics views:dictionaryView]];
-    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_newsImageView]-8-[_userLabel(==_userImageView)]" options:0 metrics:metrics views:dictionaryView]];
-    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_newsImageView]-8-[_sourceLabel(==_userImageView)]" options:0 metrics:metrics views:dictionaryView]];
+    
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_newsImageView(imageH)]-15-[_titleLabel]" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_newsImageView(imageH)]-15-[_meneosView]-15-[_contentLabel]" options:0 metrics:metrics views:dictionaryView]];
+    
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_titleLabel]-8-[_userImageView(20)]-(>=8)-[_contentLabel]-(>=15)-|" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_titleLabel]-8-[_userLabel(==_userImageView)]" options:0 metrics:metrics views:dictionaryView]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_titleLabel]-8-[_sourceLabel(==_userImageView)]" options:0 metrics:metrics views:dictionaryView]];
     
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[_commentsCountButton(>=10)]-(>=8)-[_votesPositiveLabel]-8-[_votesAnonymousLabel]-8-[_votesNegativeLabel]-8-[_karmaLabel]-16-|" options:0 metrics:metrics views:dictionaryView]];
     
@@ -166,9 +184,6 @@
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_contentLabel]-15-[_votesAnonymousLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_contentLabel]-15-[_votesNegativeLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_contentLabel]-15-[_karmaLabel]-15-|" options:0 metrics:metrics views:dictionaryView]];
-    
-    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_meneosLabel]|" options:0 metrics:metrics views:dictionaryView]];
-    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_meneosLabel(20)]|" options:0 metrics:metrics views:dictionaryView]];
 }
 
 - (void)prepareForReuse {
@@ -202,8 +217,10 @@
     
     _news = news;
     
+    self.imageURL = [NSString stringWithFormat:@"https://www.meneame.net/backend/media?type=link&id=%@&version=0&ts=%0.f&image.jpeg", self.news.serverId, [NSDate date].timeIntervalSince1970];
+    
     self.meneos = news.meneos;
-    self.imageURL = news.imageUrl ?: [NSString stringWithFormat:@"https://www.meneame.net/backend/media?type=link&id=%@&version=0&ts=%0.f&image.jpeg", self.news.serverId, [NSDate date].timeIntervalSince1970];
+    self.clics = news.clics;
     self.votesPositive = news.votesPositive;
     self.votesAnonymous = news.votesAnonymous;
     self.votesNegative = news.votesNegative;
@@ -220,7 +237,14 @@
     
     _meneos = meneos;
     
-    self.meneosLabel.text = [NSString stringWithFormat:@"%li", meneos];
+    self.meneosView.meneosCount = meneos;
+}
+
+- (void)setClics:(NSInteger)clics {
+    
+    _clics = clics;
+    
+    self.meneosView.clicsCount = clics;
 }
 
 - (void)setTitle:(NSString *)title {
@@ -346,3 +370,4 @@
 }
 
 @end
+

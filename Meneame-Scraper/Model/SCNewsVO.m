@@ -46,11 +46,18 @@
     
     SCNewsVO *news = [SCNewsVO new];
     
+    news.serverId = [sourceCode substringFromString:@"<a id=\"a-votes-" toString:@"\""];
+    
     NSString *meneosDiv = [sourceCode substringFromString:@"<div class=\"votes\">" toString:@"</div>"];
     news.meneos = [[meneosDiv substringFromString:@"\">" toString:@"</a>"] intValue];
     
+    NSString *clicsDiv = [sourceCode substringFromString:@"<div class=\"clics\">" toString:@"</div>"];
+    news.clics = [[clicsDiv substringFromString:@"  " toString:@" clics"] intValue];
+    
     NSString *imageDiv = [sourceCode substringFromString:@"class=\"fancybox thumbnail-wrapper\"" toString:@"</a>"];
-    NSString *imageSrc = [imageDiv substringFromString:@" data-src='" toString:@"'"];
+    //NSString *imageSrc = [imageDiv substringFromString:@" src=\"" toString:@"\""];
+    NSString *imageSrc = [imageDiv substringFromString:@" data-src=\"" toString:@"\""];
+    imageSrc = [imageSrc stringByReplacingOccurrencesOfString:@"media_thumb-link" withString:@"media_thumb_2x-link"];
     if (imageSrc.length == 0) {
         imageSrc = [imageDiv substringFromString:@" data-src=\"" toString:@"\""];
     }

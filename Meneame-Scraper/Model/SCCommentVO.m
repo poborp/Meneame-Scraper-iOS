@@ -31,8 +31,11 @@
     
     SCCommentVO *comment = [SCCommentVO new];
     
-    NSString *userImageUrl = [sourceCode substringFromString:@"<img src=\"" toString:@"\""];
-    comment.userImageUrl = userImageUrl;
+//    NSString *userImageUrl = [sourceCode substringFromString:@"<img src=\"" toString:@"\""];
+//    comment.userImageUrl = userImageUrl;
+    
+    NSString *imageSrc = imageSrc = [sourceCode substringFromString:@" data-src=\"" toString:@"\""];
+    comment.userImageUrl = imageSrc.length > 0 ? [NSString stringWithFormat:@"https://mnmstatic.net/%@", imageSrc] : nil;
     
     comment.num = [commentOrder intValue];
     

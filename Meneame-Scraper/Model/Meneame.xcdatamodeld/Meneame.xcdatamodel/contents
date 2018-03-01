@@ -17,6 +17,7 @@
         <relationship name="votes" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="SCUserVO" inverseName="votes" inverseEntity="SCCommentVO" syncable="YES"/>
     </entity>
     <entity name="SCNewsVO" representedClassName="SCNewsVO" syncable="YES" codeGenerationType="category">
+        <attribute name="clics" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="commentsCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="commentsUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,6 +27,7 @@
         <attribute name="publishedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="section" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sendedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="serverId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="soruceTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sourceUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -50,7 +52,7 @@
     </entity>
     <elements>
         <element name="SCCommentVO" positionX="27" positionY="72" width="128" height="255"/>
-        <element name="SCNewsVO" positionX="0" positionY="45" width="128" height="345"/>
+        <element name="SCNewsVO" positionX="0" positionY="45" width="128" height="375"/>
         <element name="SCUserVO" positionX="-36" positionY="9" width="128" height="165"/>
     </elements>
 </model>

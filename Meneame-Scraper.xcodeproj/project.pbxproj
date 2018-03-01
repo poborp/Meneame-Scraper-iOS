@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA1720C320480532008AB73E /* SCDetailNewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1720C220480532008AB73E /* SCDetailNewsTableViewCell.m */; };
+		EA1720C620480951008AB73E /* SCMeneosView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1720C520480951008AB73E /* SCMeneosView.m */; };
 		EA44A7BC203EBFBD0046A299 /* SCDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA44A7BA203EBFBD0046A299 /* SCDetailViewController.m */; };
 		EA6954F11E6B076700A5C2DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6954F01E6B076700A5C2DD /* main.m */; };
 		EA6954F41E6B076700A5C2DD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6954F31E6B076700A5C2DD /* AppDelegate.m */; };
@@ -47,11 +49,15 @@
 		EA6955971E6D666300A5C2DD /* SCUserVO.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6955961E6D666300A5C2DD /* SCUserVO.m */; };
 		EAC7998F204463AF0018AA1D /* JRHTMLString.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC7998D204463AE0018AA1D /* JRHTMLString.m */; };
 		EAC79992204469060018AA1D /* JRHTMLStringView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC79991204469060018AA1D /* JRHTMLStringView.m */; };
-		EAC7999520446A6C0018AA1D /* SCDetailCommentCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC7999420446A6C0018AA1D /* SCDetailCommentCellView.m */; };
+		EAC7999520446A6C0018AA1D /* SCDetailCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC7999420446A6C0018AA1D /* SCDetailCommentTableViewCell.m */; };
 		EAC79998204557480018AA1D /* JRHTMLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC79997204557480018AA1D /* JRHTMLTextView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EA1720C120480532008AB73E /* SCDetailNewsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCDetailNewsTableViewCell.h; sourceTree = "<group>"; };
+		EA1720C220480532008AB73E /* SCDetailNewsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCDetailNewsTableViewCell.m; sourceTree = "<group>"; };
+		EA1720C420480951008AB73E /* SCMeneosView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCMeneosView.h; sourceTree = "<group>"; };
+		EA1720C520480951008AB73E /* SCMeneosView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCMeneosView.m; sourceTree = "<group>"; };
 		EA44A7B9203EBFBD0046A299 /* SCDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCDetailViewController.h; sourceTree = "<group>"; };
 		EA44A7BA203EBFBD0046A299 /* SCDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCDetailViewController.m; sourceTree = "<group>"; };
 		EA6954EC1E6B076700A5C2DD /* Meneame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meneame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,8 +140,8 @@
 		EAC7998E204463AF0018AA1D /* JRHTMLString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRHTMLString.h; sourceTree = "<group>"; };
 		EAC79990204469060018AA1D /* JRHTMLStringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRHTMLStringView.h; sourceTree = "<group>"; };
 		EAC79991204469060018AA1D /* JRHTMLStringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRHTMLStringView.m; sourceTree = "<group>"; };
-		EAC7999320446A6C0018AA1D /* SCDetailCommentCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCDetailCommentCellView.h; sourceTree = "<group>"; };
-		EAC7999420446A6C0018AA1D /* SCDetailCommentCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCDetailCommentCellView.m; sourceTree = "<group>"; };
+		EAC7999320446A6C0018AA1D /* SCDetailCommentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCDetailCommentTableViewCell.h; sourceTree = "<group>"; };
+		EAC7999420446A6C0018AA1D /* SCDetailCommentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCDetailCommentTableViewCell.m; sourceTree = "<group>"; };
 		EAC79996204557480018AA1D /* JRHTMLTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JRHTMLTextView.h; sourceTree = "<group>"; };
 		EAC79997204557480018AA1D /* JRHTMLTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JRHTMLTextView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -269,6 +275,8 @@
 				EA6955331E6D605000A5C2DD /* SCSearchBarIconView.m */,
 				EA6955341E6D605000A5C2DD /* SCUserIconView.h */,
 				EA6955351E6D605000A5C2DD /* SCUserIconView.m */,
+				EA1720C420480951008AB73E /* SCMeneosView.h */,
+				EA1720C520480951008AB73E /* SCMeneosView.m */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -380,8 +388,10 @@
 		EAC7999920457ACC0018AA1D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				EAC7999320446A6C0018AA1D /* SCDetailCommentCellView.h */,
-				EAC7999420446A6C0018AA1D /* SCDetailCommentCellView.m */,
+				EA1720C120480532008AB73E /* SCDetailNewsTableViewCell.h */,
+				EA1720C220480532008AB73E /* SCDetailNewsTableViewCell.m */,
+				EAC7999320446A6C0018AA1D /* SCDetailCommentTableViewCell.h */,
+				EAC7999420446A6C0018AA1D /* SCDetailCommentTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -485,10 +495,11 @@
 				EA6955621E6D605000A5C2DD /* UIWebView+AFNetworking.m in Sources */,
 				EA6954F11E6B076700A5C2DD /* main.m in Sources */,
 				EA69556C1E6D605000A5C2DD /* AFURLResponseSerialization.m in Sources */,
-				EAC7999520446A6C0018AA1D /* SCDetailCommentCellView.m in Sources */,
+				EAC7999520446A6C0018AA1D /* SCDetailCommentTableViewCell.m in Sources */,
 				EAC79992204469060018AA1D /* JRHTMLStringView.m in Sources */,
 				EA6955721E6D605000A5C2DD /* SCManageModel.m in Sources */,
 				EA69556B1E6D605000A5C2DD /* AFURLRequestSerialization.m in Sources */,
+				EA1720C620480951008AB73E /* SCMeneosView.m in Sources */,
 				EA69555A1E6D605000A5C2DD /* AFAutoPurgingImageCache.m in Sources */,
 				EA69555B1E6D605000A5C2DD /* AFImageDownloader.m in Sources */,
 				EA69550E1E6D5FE100A5C2DD /* SCMainTableViewCell.m in Sources */,
@@ -498,6 +509,7 @@
 				EA6955691E6D605000A5C2DD /* AFNetworkReachabilityManager.m in Sources */,
 				EA69550D1E6D5FE100A5C2DD /* SCMainViewController.m in Sources */,
 				EA6955971E6D666300A5C2DD /* SCUserVO.m in Sources */,
+				EA1720C320480532008AB73E /* SCDetailNewsTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

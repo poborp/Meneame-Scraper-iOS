@@ -9,15 +9,15 @@
 #import "SCDetailViewController.h"
 #import <SafariServices/SafariServices.h>
 
-#import "SCDetailCommentCellView.h"
+#import "SCDetailNewsTableViewCell.h"
+#import "SCDetailCommentTableViewCell.h"
 #import "SCScraperManager.h"
 
 #import "SCNewsVO.h"
 #import "SCCommentVO.h"
 
-#import "JRHTMLString.h"
-
-static NSString *CellIdentifier = @"CellIdentifier";
+static NSString *NewsCellIdentifier = @"NewsCellIdentifier";
+static NSString *CommentCellIdentifier = @"CommentCellIdentifier";
 
 @interface SCDetailViewController () <JRHTMLTextViewDelegate>
 
@@ -48,7 +48,8 @@ static NSString *CellIdentifier = @"CellIdentifier";
     self.tableView.estimatedRowHeight = 60;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.separatorColor = [UIColor appSecondaryColor];
-    [self.tableView registerClass:[SCDetailCommentCellView class] forCellReuseIdentifier:CellIdentifier];
+    [self.tableView registerClass:[SCDetailNewsTableViewCell class] forCellReuseIdentifier:NewsCellIdentifier];
+    [self.tableView registerClass:[SCDetailCommentTableViewCell class] forCellReuseIdentifier:CommentCellIdentifier];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -71,31 +72,33 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.news.comments.count;
+    if (section == 0) {
+        return 1;
+    } else {
+        return self.news.comments.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    SCCommentVO *comment = self.news.commentsSortedByDate[indexPath.row];
-    
-    JRHTMLString *htmlString = [JRHTMLString htmlWithContentString:comment.text];
-    htmlString.hiperlinkColor = [UIColor appMainColor];
-    htmlString.hiperlinkLine = NO;
-    htmlString.font = [UIFont systemFontOfSize:14];
-    
-    SCDetailCommentCellView *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    cell.numCommentLabel.text = [NSString stringWithFormat:@"#%i", comment.num];
-    cell.userNameLabel.text = comment.username;
-    //cell.htmlStringView.htmlString = htmlString;
-    cell.textView.htmlString = htmlString;
-    cell.textView.linkDelegate = self;
-    
-    return cell;
+    if (indexPath.section == 0) {
+        
+        SCDetailNewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NewsCellIdentifier forIndexPath:indexPath];
+        cell.news = self.news;
+        return cell;
+        
+    } else {
+        
+        SCDetailCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CommentCellIdentifier forIndexPath:indexPath];
+        cell.comment = self.news.commentsSortedByDate[indexPath.row];
+        cell.textView.linkDelegate = self;
+        return cell;
+    }
 }
 
 #pragma mark - JRHTMLTextView Delegate
@@ -106,8 +109,10 @@ static NSString *CellIdentifier = @"CellIdentifier";
         
         NSInteger commentNum = [[link.absoluteString substringFromString:@"#c-" toString:nil] integerValue];
         //NSLog(@"Comment Num %li", (long)commentNum);
-        if (commentNum > 0) {
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:commentNum-1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        if (commentNum == 0) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:commentNum inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        } else if (commentNum > 0) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:commentNum-1 inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }
         
     } else {
