@@ -1,6 +1,6 @@
 //
 //  SCScraperManager.m
-//  ScrAPPer
+//  Meneame
 //
 //  Created by Jacobo Rodriguez on 20/2/17.
 //  Copyright © 2017 tBear Software. All rights reserved.
@@ -8,9 +8,12 @@
 
 #import "SCScraperManager.h"
 #import "SCScraperWebManager.h"
-#import "SCNewsVO.h"
+
 #import "AFNetworking.h"
 #import "UIWebView+Utils.h"
+
+#import "SCNewsVO.h"
+#import "SCCommentVO.h"
 
 @interface SCScraperManager ()
 
@@ -98,13 +101,30 @@
     
     [self.webScraper get:url params:params completion:^(UIWebView *webView, NSError *error) {
         
-        NSArray *news = [SCNewsVO allObjectsFromSourceCode:webView.sourceCode];
+        NSString *sourceCode = webView.sourceCode;
+        NSArray *news = [SCNewsVO allObjectsFromSourceCode:sourceCode];
         
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:@{@"page": @(page), @"elements": news}];
         [dictionary addEntriesFromDictionary:[self getWebInfoFromSourceCode:webView.sourceCode]];
         
         if (completion) {
             completion(dictionary, error);
+        }
+    }];
+}
+
+- (void)newsDetailsWithNewsId:(NSString *)newsId completion:(void(^)(NSArray *commentsList, NSError *error))completion {
+    
+    //NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.meneame.net%@", newsId]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.meneame.net%@/standard", newsId]];
+    
+    [self.webScraper get:url params:nil completion:^(UIWebView *webView, NSError *error) {
+        
+        //NSArray *comments = [SCCommentVO allObjectsFromArray:[webView getElementsByClassName:@"threader zero"]];
+        NSArray *comments = [SCCommentVO allObjectsFromArray:[webView getElementsByClassName:@"comment"]];
+        
+        if (completion) {
+            completion(comments, nil);
         }
     }];
 }

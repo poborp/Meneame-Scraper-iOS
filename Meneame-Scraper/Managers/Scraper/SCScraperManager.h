@@ -1,6 +1,6 @@
 //
 //  SCScraperManager.h
-//  ScrAPPer
+//  Meneame
 //
 //  Created by Jacobo Rodriguez on 20/2/17.
 //  Copyright © 2017 tBear Software. All rights reserved.
@@ -19,6 +19,7 @@
 - (void)logoutWithcompletion:(void(^)(BOOL result, NSError *error))completion;
 
 - (void)newsFromPage:(NSInteger)page completion:(void(^)(NSDictionary *newsList, NSError *error))completion;
+- (void)newsDetailsWithNewsId:(NSString *)newsId completion:(void(^)(NSArray *commentsList, NSError *error))completion;
 
 - (void)notificationsWithCompletion:(void(^)(NSDictionary *notifications, NSError *error))completion;
 - (void)search:(NSString *)string completion:(void(^)(NSDictionary *data, NSError *error))completion;

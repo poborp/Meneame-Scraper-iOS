@@ -1,6 +1,6 @@
 //
 //  SCScraperWebManager.m
-//  ScrAPPer
+//  Meneame
 //
 //  Created by Jacobo Rodriguez on 1/3/17.
 //  Copyright © 2017 tBear Software. All rights reserved.
@@ -90,6 +90,9 @@
     
     //NSLog(@"[WebScraper] Should start load with request \"%@\" (navType %li)", request.URL.absoluteString, navigationType);
     
+    if ([request.URL.absoluteString isEqualToString:@"about:blank"]) {
+        return NO;
+    }
     return YES;
 }
 
