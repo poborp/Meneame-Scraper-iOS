@@ -102,6 +102,7 @@
         
         _userImageView = [UIImageView new];
         _userImageView.translatesAutoresizingMaskIntoConstraints = NO;
+        _userImageView.image = [UIImage imageNamed:@"no-gravatar"];
         _userImageView.backgroundColor = [UIColor whiteColor];
         _userImageView.clipsToBounds = YES;
         _userImageView.contentMode = UIViewContentModeScaleAspectFill;

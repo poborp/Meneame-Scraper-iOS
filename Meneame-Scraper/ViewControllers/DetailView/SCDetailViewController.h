@@ -7,13 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SCDetailView.h"
 
 @class SCNewsVO;
 
-@interface SCDetailViewController : UIViewController
-
-@property (nonatomic, strong) SCDetailView *view;
+@interface SCDetailViewController : UITableViewController
 
 - (instancetype)initWithNews:(SCNewsVO *)news;
 

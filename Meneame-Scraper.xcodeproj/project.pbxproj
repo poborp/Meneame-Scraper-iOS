@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EA44A7BB203EBFBD0046A299 /* SCDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA44A7B8203EBFBD0046A299 /* SCDetailView.m */; };
 		EA44A7BC203EBFBD0046A299 /* SCDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA44A7BA203EBFBD0046A299 /* SCDetailViewController.m */; };
 		EA6954F11E6B076700A5C2DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6954F01E6B076700A5C2DD /* main.m */; };
 		EA6954F41E6B076700A5C2DD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6954F31E6B076700A5C2DD /* AppDelegate.m */; };
@@ -44,16 +43,15 @@
 		EA6955741E6D605000A5C2DD /* SCNewsVO.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6955561E6D605000A5C2DD /* SCNewsVO.m */; };
 		EA6955761E6D607D00A5C2DD /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA6955751E6D607D00A5C2DD /* FontAwesome.ttf */; };
 		EA6955821E6D650C00A5C2DD /* Meneame.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EA6955801E6D650C00A5C2DD /* Meneame.xcdatamodeld */; };
-		EA6955901E6D662900A5C2DD /* SCUserVO+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6955861E6D662900A5C2DD /* SCUserVO+CoreDataProperties.m */; };
 		EA6955911E6D662900A5C2DD /* SCCommentVO.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6955881E6D662900A5C2DD /* SCCommentVO.m */; };
-		EA6955921E6D662900A5C2DD /* SCCommentVO+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = EA69558A1E6D662900A5C2DD /* SCCommentVO+CoreDataProperties.m */; };
-		EA6955941E6D662900A5C2DD /* SCNewsVO+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = EA69558E1E6D662900A5C2DD /* SCNewsVO+CoreDataProperties.m */; };
 		EA6955971E6D666300A5C2DD /* SCUserVO.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6955961E6D666300A5C2DD /* SCUserVO.m */; };
+		EAC7998F204463AF0018AA1D /* JRHTMLString.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC7998D204463AE0018AA1D /* JRHTMLString.m */; };
+		EAC79992204469060018AA1D /* JRHTMLStringView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC79991204469060018AA1D /* JRHTMLStringView.m */; };
+		EAC7999520446A6C0018AA1D /* SCDetailCommentCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC7999420446A6C0018AA1D /* SCDetailCommentCellView.m */; };
+		EAC79998204557480018AA1D /* JRHTMLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC79997204557480018AA1D /* JRHTMLTextView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		EA44A7B7203EBFBD0046A299 /* SCDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCDetailView.h; sourceTree = "<group>"; };
-		EA44A7B8203EBFBD0046A299 /* SCDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCDetailView.m; sourceTree = "<group>"; };
 		EA44A7B9203EBFBD0046A299 /* SCDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCDetailViewController.h; sourceTree = "<group>"; };
 		EA44A7BA203EBFBD0046A299 /* SCDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCDetailViewController.m; sourceTree = "<group>"; };
 		EA6954EC1E6B076700A5C2DD /* Meneame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meneame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,16 +126,18 @@
 		EA6955751E6D607D00A5C2DD /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		EA6955771E6D608500A5C2DD /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		EA6955811E6D650C00A5C2DD /* Meneame.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Meneame.xcdatamodel; sourceTree = "<group>"; };
-		EA6955851E6D662900A5C2DD /* SCUserVO+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCUserVO+CoreDataProperties.h"; sourceTree = "<group>"; };
-		EA6955861E6D662900A5C2DD /* SCUserVO+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SCUserVO+CoreDataProperties.m"; sourceTree = "<group>"; };
 		EA6955871E6D662900A5C2DD /* SCCommentVO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCommentVO.h; sourceTree = "<group>"; };
 		EA6955881E6D662900A5C2DD /* SCCommentVO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCommentVO.m; sourceTree = "<group>"; };
-		EA6955891E6D662900A5C2DD /* SCCommentVO+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCCommentVO+CoreDataProperties.h"; sourceTree = "<group>"; };
-		EA69558A1E6D662900A5C2DD /* SCCommentVO+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SCCommentVO+CoreDataProperties.m"; sourceTree = "<group>"; };
-		EA69558D1E6D662900A5C2DD /* SCNewsVO+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCNewsVO+CoreDataProperties.h"; sourceTree = "<group>"; };
-		EA69558E1E6D662900A5C2DD /* SCNewsVO+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SCNewsVO+CoreDataProperties.m"; sourceTree = "<group>"; };
 		EA6955951E6D666300A5C2DD /* SCUserVO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCUserVO.h; sourceTree = "<group>"; };
 		EA6955961E6D666300A5C2DD /* SCUserVO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCUserVO.m; sourceTree = "<group>"; };
+		EAC7998D204463AE0018AA1D /* JRHTMLString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRHTMLString.m; sourceTree = "<group>"; };
+		EAC7998E204463AF0018AA1D /* JRHTMLString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRHTMLString.h; sourceTree = "<group>"; };
+		EAC79990204469060018AA1D /* JRHTMLStringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRHTMLStringView.h; sourceTree = "<group>"; };
+		EAC79991204469060018AA1D /* JRHTMLStringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRHTMLStringView.m; sourceTree = "<group>"; };
+		EAC7999320446A6C0018AA1D /* SCDetailCommentCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCDetailCommentCellView.h; sourceTree = "<group>"; };
+		EAC7999420446A6C0018AA1D /* SCDetailCommentCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCDetailCommentCellView.m; sourceTree = "<group>"; };
+		EAC79996204557480018AA1D /* JRHTMLTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JRHTMLTextView.h; sourceTree = "<group>"; };
+		EAC79997204557480018AA1D /* JRHTMLTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JRHTMLTextView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,8 +156,7 @@
 			children = (
 				EA44A7B9203EBFBD0046A299 /* SCDetailViewController.h */,
 				EA44A7BA203EBFBD0046A299 /* SCDetailViewController.m */,
-				EA44A7B7203EBFBD0046A299 /* SCDetailView.h */,
-				EA44A7B8203EBFBD0046A299 /* SCDetailView.m */,
+				EAC7999920457ACC0018AA1D /* Cells */,
 			);
 			path = DetailView;
 			sourceTree = "<group>";
@@ -277,6 +276,7 @@
 		EA6955361E6D605000A5C2DD /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				EAC7998C2044637C0018AA1D /* JRHTMLString */,
 				EA6955371E6D605000A5C2DD /* AFNetworking */,
 			);
 			path = Libraries;
@@ -328,7 +328,6 @@
 				EA6955511E6D605000A5C2DD /* SCManageModel.h */,
 				EA6955521E6D605000A5C2DD /* SCManageModel.m */,
 				EA69557A1E6D62E800A5C2DD /* Objects */,
-				EA6955981E6D66A500A5C2DD /* CoreDataClass */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -344,19 +343,6 @@
 				EA6955561E6D605000A5C2DD /* SCNewsVO.m */,
 			);
 			name = Objects;
-			sourceTree = "<group>";
-		};
-		EA6955981E6D66A500A5C2DD /* CoreDataClass */ = {
-			isa = PBXGroup;
-			children = (
-				EA6955851E6D662900A5C2DD /* SCUserVO+CoreDataProperties.h */,
-				EA6955861E6D662900A5C2DD /* SCUserVO+CoreDataProperties.m */,
-				EA6955891E6D662900A5C2DD /* SCCommentVO+CoreDataProperties.h */,
-				EA69558A1E6D662900A5C2DD /* SCCommentVO+CoreDataProperties.m */,
-				EA69558D1E6D662900A5C2DD /* SCNewsVO+CoreDataProperties.h */,
-				EA69558E1E6D662900A5C2DD /* SCNewsVO+CoreDataProperties.m */,
-			);
-			name = CoreDataClass;
 			sourceTree = "<group>";
 		};
 		EA82BFAE1E6D717400F92D57 /* Cells */ = {
@@ -376,6 +362,28 @@
 				EA82BFAE1E6D717400F92D57 /* Cells */,
 			);
 			path = MainView;
+			sourceTree = "<group>";
+		};
+		EAC7998C2044637C0018AA1D /* JRHTMLString */ = {
+			isa = PBXGroup;
+			children = (
+				EAC79990204469060018AA1D /* JRHTMLStringView.h */,
+				EAC79991204469060018AA1D /* JRHTMLStringView.m */,
+				EAC7998E204463AF0018AA1D /* JRHTMLString.h */,
+				EAC7998D204463AE0018AA1D /* JRHTMLString.m */,
+				EAC79996204557480018AA1D /* JRHTMLTextView.h */,
+				EAC79997204557480018AA1D /* JRHTMLTextView.m */,
+			);
+			path = JRHTMLString;
+			sourceTree = "<group>";
+		};
+		EAC7999920457ACC0018AA1D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				EAC7999320446A6C0018AA1D /* SCDetailCommentCellView.h */,
+				EAC7999420446A6C0018AA1D /* SCDetailCommentCellView.m */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -460,10 +468,10 @@
 				EA6955601E6D605000A5C2DD /* UIProgressView+AFNetworking.m in Sources */,
 				EA69555C1E6D605000A5C2DD /* AFNetworkActivityIndicatorManager.m in Sources */,
 				EA69555F1E6D605000A5C2DD /* UIImageView+AFNetworking.m in Sources */,
-				EA6955901E6D662900A5C2DD /* SCUserVO+CoreDataProperties.m in Sources */,
 				EA6955741E6D605000A5C2DD /* SCNewsVO.m in Sources */,
 				EA6954F41E6B076700A5C2DD /* AppDelegate.m in Sources */,
 				EA6955631E6D605000A5C2DD /* UIWebView+Utils.m in Sources */,
+				EAC7998F204463AF0018AA1D /* JRHTMLString.m in Sources */,
 				EA6955821E6D650C00A5C2DD /* Meneame.xcdatamodeld in Sources */,
 				EA69555D1E6D605000A5C2DD /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				EA6955651E6D605000A5C2DD /* SCNotificationsView.m in Sources */,
@@ -473,20 +481,20 @@
 				EA6955911E6D662900A5C2DD /* SCCommentVO.m in Sources */,
 				EA6955661E6D605000A5C2DD /* SCSearchBarIconView.m in Sources */,
 				EA44A7BC203EBFBD0046A299 /* SCDetailViewController.m in Sources */,
-				EA6955941E6D662900A5C2DD /* SCNewsVO+CoreDataProperties.m in Sources */,
 				EA69556D1E6D605000A5C2DD /* AFURLSessionManager.m in Sources */,
 				EA6955621E6D605000A5C2DD /* UIWebView+AFNetworking.m in Sources */,
 				EA6954F11E6B076700A5C2DD /* main.m in Sources */,
-				EA6955921E6D662900A5C2DD /* SCCommentVO+CoreDataProperties.m in Sources */,
 				EA69556C1E6D605000A5C2DD /* AFURLResponseSerialization.m in Sources */,
+				EAC7999520446A6C0018AA1D /* SCDetailCommentCellView.m in Sources */,
+				EAC79992204469060018AA1D /* JRHTMLStringView.m in Sources */,
 				EA6955721E6D605000A5C2DD /* SCManageModel.m in Sources */,
 				EA69556B1E6D605000A5C2DD /* AFURLRequestSerialization.m in Sources */,
 				EA69555A1E6D605000A5C2DD /* AFAutoPurgingImageCache.m in Sources */,
 				EA69555B1E6D605000A5C2DD /* AFImageDownloader.m in Sources */,
 				EA69550E1E6D5FE100A5C2DD /* SCMainTableViewCell.m in Sources */,
 				EA6955701E6D605000A5C2DD /* SCScraperManager.m in Sources */,
-				EA44A7BB203EBFBD0046A299 /* SCDetailView.m in Sources */,
 				EA69555E1E6D605000A5C2DD /* UIButton+AFNetworking.m in Sources */,
+				EAC79998204557480018AA1D /* JRHTMLTextView.m in Sources */,
 				EA6955691E6D605000A5C2DD /* AFNetworkReachabilityManager.m in Sources */,
 				EA69550D1E6D5FE100A5C2DD /* SCMainViewController.m in Sources */,
 				EA6955971E6D666300A5C2DD /* SCUserVO.m in Sources */,
