@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SCCommentVO : NSManagedObject
 
++ (instancetype)objectFromSourceCode:(NSString *)sourceCode;
++ (NSArray *)allObjectsFromSourceCode:(NSString *)sourceCode;
++ (NSArray *)allObjectsFromArray:(NSArray *)array;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -17,7 +17,9 @@
 
 + (instancetype)new {
     
-    NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass(self) inManagedObjectContext:COREDATA.mainObjectContext];
+    NSManagedObjectContext *context = COREDATA.mainObjectContext;
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"SCNewsVO" inManagedObjectContext:context];
+    //NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass(self) inManagedObjectContext:COREDATA.mainObjectContext];
     id object = [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:COREDATA.mainObjectContext];
     return object;
 }
@@ -99,6 +101,9 @@
     NSString *commentsDiv = [sourceCode substringFromString:@"<i class=\"fa fa-comments\">" toString:@"</a>"];
     news.commentsCount = [[commentsDiv substringFromString:@"</i>" toString:@" comentarios"] intValue];
     
+    NSString *commentsUrl = [sourceCode substringFromString:@"<a class=\"comments\" href=\"" toString:@"\""];
+    news.commentsUrl = commentsUrl;
+    
     return news;
 }
 
@@ -109,7 +114,7 @@
     NSArray *elements = [sourceCode componentsSeparatedByString:@"news-summary"];
     for (NSString *element in elements) {
         if (element != elements.firstObject) {
-            SCNewsVO *news = [SCNewsVO objectFromSourceCode:element];
+            SCNewsVO *news = [self objectFromSourceCode:element];
             [newsFound addObject:news];
         }
     }
@@ -132,6 +137,12 @@
 - (NSString *)userName {
     
     return [self.userUrl stringByReplacingOccurrencesOfString:@"/user/" withString:@""];
+}
+
+- (NSArray *)commentsSortedByDate {
+    
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
+    return [self.comments sortedArrayUsingDescriptors:@[sortDescriptor]];
 }
 
 @end

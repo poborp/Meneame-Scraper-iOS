@@ -15,11 +15,14 @@ typedef enum : NSUInteger {
     SCNewsTypeVideo,
 } SCNewsType;
 
+@class SCCommentVO;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SCNewsVO : NSManagedObject
 
 @property (nonatomic, strong, readonly) NSString *userName;
+@property (nonatomic, strong, readonly) NSArray *commentsSortedByDate;
 
 + (instancetype)exampleObject;
 + (instancetype)objectFromSourceCode:(NSString *)sourceCode;
